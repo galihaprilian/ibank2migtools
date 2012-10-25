@@ -112,10 +112,16 @@
 -------------------------------------------------------------------------
 set tab off
 set heading off heading off feedback off echo off verify off space 1 pagesize 0 linesize 120
-accept owner             prompt 'What schema owns the table to be unloaded? '
-accept table_name        prompt 'What table is to be unloaded? '
-accept default_precision prompt 'What TOTAL number of digits should be reserved for numbers without defined precision? '
-accept default_scale     prompt 'What number of DECIMAL digits should be reserved for numbers without defined scale? '
+
+--accept owner             prompt 'What schema owns the table to be unloaded? '
+set owner = &1
+--accept table_name        prompt 'What table is to be unloaded? '
+set table_name = &2
+--accept default_precision prompt 'What TOTAL number of digits should be reserved for numbers without defined precision? '
+set default_precision = 38
+--accept default_scale     prompt 'What number of DECIMAL digits should be reserved for numbers without defined scale? '
+set default_scale = 16
+
 ---------------------------------------------------
 --  Generate the unload script
 ---------------------------------------------------
