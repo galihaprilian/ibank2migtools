@@ -1,0 +1,37 @@
+[
+  {
+    'datafile': 'JOURNAL.ldr',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'JOURNALITEM.ldr',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'GLDAILYBALANCE.ldr',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'ACCOUNTDAILYBALANCE.ldr',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'MFAS.ldr',
+    'presql': 'pre_mfas.sql',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'MLOAN.ldr',
+    'presql': 'pre_mloan.sql',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'LOAN_TRANSACTION.ldr',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  },
+  {
+    'datafile': 'AGUNAN.ldr',
+    'presql': 'pre_agunan.sql',
+    'connectionstring': 'dwuser/dwpass@dwkiblat'
+  }
+]

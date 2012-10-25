@@ -1,0 +1,9 @@
+[
+  {
+    'dbconfigfile': 'c:/dafapp/tools/pbs_migrasi.cfg',
+    'type': 'table',
+    'tablename': 'MAPPINGCOA',
+    'location':'',
+    'proctype': 'REPLACE'
+  }
+]

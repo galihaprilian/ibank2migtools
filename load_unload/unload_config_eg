@@ -1,0 +1,92 @@
+[
+  {
+    'dbconfigfile': 'z:/ibank/accounting/default.cfg',
+    'type': 'table',
+    'tablename': 'JOURNAL',
+    'location':'',
+    'proctype': 'APPEND',
+    'selector': "EXISTS (\
+      SELECT 1 FROM LIABILITY.PARAMETERGLOBAL \
+      WHERE Kode_Parameter = 'POD_PREV' \
+      AND Nilai_Parameter_Tanggal = JOURNAL.Journal_Date) "
+  },
+  {
+    'dbconfigfile': 'z:/ibank/accounting/default.cfg',
+    'type': 'table',
+    'tablename': 'JOURNALITEM',
+    'location':'',
+    'proctype': 'APPEND',
+    'selector': "EXISTS (\
+      SELECT 1 FROM JOURNAL J, LIABILITY.PARAMETERGLOBAL P \
+      WHERE JOURNALITEM.Fl_Journal = J.Journal_No and P.Kode_Parameter = 'POD_PREV' \
+      AND P.Nilai_Parameter_Tanggal = J.Journal_Date) "
+  },
+  {
+    'dbconfigfile': 'z:/ibank/accounting/default.cfg',
+    'type': 'query',
+    'tablename': 'GLDAILYBALANCE',
+    'location':'',
+    'columns': ['THE_DATE', 'SSL_CODE', 'CURRENCY_CODE', 'BRANCH_CODE', 
+      'SSL_TYPE', 'BALANCE', 'BALANCE_EKIV'],
+    'proctype': 'APPEND',
+    'select_columns': ['P.Nilai_Parameter_Tanggal', 'N.Kode_SSL', 'N.Kode_Valuta',
+      'N.Kode_Cabang', 'N.Tipe_SSL', 'N.Saldo', 'N.Saldo_Ekiv'],
+    'query': "\
+      SELECT %s \
+      FROM Liability.ParameterGlobal P, DataN N \
+      WHERE P.Kode_Parameter = 'POD_PREV'"
+  },
+  {
+    'dbconfigfile': 'z:/ibank/liability/default.cfg',
+    'type': 'query',
+    'tablename': 'ACCOUNTDAILYBALANCE',
+    'location':'',
+    'columns': ['THE_DATE', 'ACCOUNT_NO', 'PRODUCT_CODE', 'BRANCH_CODE', 
+      'ACCOUNT_TYPE', 'CURRENCY_CODE', 'FUNDINGAGENT_CODE', 'CUSTOMER_NO',
+      'ACCOUNT_STATUS', 'BALANCE', 'ACCOUNT_NAME', 'DESCRIPTION', 'OPENING_DATE'],
+    'proctype': 'APPEND',
+    'select_columns': ['P.Nilai_Parameter_Tanggal', 'R.Nomor_Rekening', 'L.Kode_Produk', 
+      'R.Kode_Cabang', 'L.Jenis_Rekening_Liabilitas', 'R.Kode_Valuta', 'L.Kode_Agen_Funding',
+      'L.Nomor_Nasabah', 'R.Status_Rekening', 'R.Saldo', 'R.Nama_Rekening',
+      'R.Keterangan', 'L.Tanggal_Buka'],
+    'query': "\
+      SELECT %s \
+      FROM ParameterGlobal P, RekeningTransaksi R, RekeningLiabilitas L, \
+        HistDetilTransaksi D, HistTransaksi T \
+      WHERE P.Kode_Parameter = 'POD_PREV' and R.Nomor_Rekening = L.Nomor_Rekening \
+        and P.Nilai_Parameter_Tanggal = T.Tanggal_Transaksi \
+        and D.Id_Transaksi = T.Id_Transaksi and D.Nomor_Rekening = L.Nomor_Rekening "
+  },
+  {
+    'dbconfigfile': 'z:/ibank/financing/default.cfg',
+    'type': 'table',
+    'tablename': 'MFAS',
+    'location':'',
+    'proctype': 'INSERT'
+  },
+  {
+    'dbconfigfile': 'z:/ibank/financing/default.cfg',
+    'type': 'table',
+    'tablename': 'MLOAN',
+    'location':'',
+    'proctype': 'INSERT'
+  },
+  {
+    'dbconfigfile': 'z:/ibank/financing/default.cfg',
+    'type': 'table',
+    'tablename': 'AGUNAN',
+    'location':'',
+    'proctype': 'INSERT'
+  },
+  {
+    'dbconfigfile': 'z:/ibank/financing/default.cfg',
+    'type': 'table',
+    'tablename': 'LOAN_TRANSACTION',
+    'location':'',
+    'proctype': 'APPEND',
+    'selector': "EXISTS (\
+      SELECT 1 FROM LIABILITY.PARAMETERGLOBAL \
+      WHERE Kode_Parameter = 'POD_PREV' \
+      AND Nilai_Parameter_Tanggal = LOAN_TRANSACTION.Transact_Date) "
+  },
+]
